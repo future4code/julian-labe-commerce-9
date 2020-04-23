@@ -13,6 +13,19 @@ const ContainerProdutos = styled.div`
     gap: 10px;
     column-gap: 10px;
 `
+const ContainerFiltros = styled.div`
+    display: inline-flex;
+    align-items: center;
+`
+
+const ContainerLogoFiltro = styled.div`
+    display: inline-flex;
+    align-items: center;
+    margin: 0 15px;
+    :hover{
+        cursor:pointer;
+    }
+`
 
 class SecaoProdutos extends React.Component{
     state = {
@@ -176,12 +189,35 @@ class SecaoProdutos extends React.Component{
     render(){
         const listaAtualizada = this.atualizaProdutos();
         switch(this.props.secao){
-            
+
+        }
+
+        if(this.props.filtro){
+            return <div>
+            <ContainerFiltros>
+                <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                    <img src={IconeFiltro} /> 
+                    <span>Filtrar</span>
+                </ContainerLogoFiltro>
+                <label for="minimo">Valor mínimo: </label>
+                <input type="number" name="minimo" />
+                <label for="maximo">Valor máximo: </label>
+                <input type="number" name="maximo" />
+                <label for="busca">Buscar Produto </label>
+                <input type="text" name="busca" />
+            </ContainerFiltros>
+            <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
+                {listaAtualizada}
+            </ContainerProdutos>
+            </div>
         }
 
         return(
             <div>
-                <img className="icone-carrinho" onClick={this.props.abreFiltro} src={IconeFiltro} /> Filtrar
+                <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                    <img src={IconeFiltro} /> 
+                    <span>Filtrar</span>
+                </ContainerLogoFiltro>
                 <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
                     {listaAtualizada}
                 </ContainerProdutos>
