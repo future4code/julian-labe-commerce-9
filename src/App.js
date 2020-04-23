@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import Filtro from './components/Filtro'
+import Carrinho from './components/Carrinho'
+import SecaoProdutos from './components/SecaoProdutos'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state={
+    filtro: false,
+    carrinho: false,
+    secao: ''
+  }
+
+  abreFiltro = () =>{
+    this.setState({filtro: !(this.state.filtro)})
+  }
+
+  abreCarrinho = () => {
+    this.setState({carrinho: !(this.state.carrinho), secao: ''})
+  }
+
+  recebeSecao = (secaoClicada) => {
+    this.setState({secao: secaoClicada, carrinho: false})
+  }
+
+  render(){
+    if(this.state.carrinho && !this.state.secao){
+        return(
+          <div className="App">
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <button onClick={this.abreFiltro}>Filtrar</button>
+            <Carrinho />
+            
+          </div>
+        );
+    }
+    if(this.state.filtro){
+      return(
+        <div className="App">
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <SecaoProdutos secao={this.state.secao} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
+        </div>
+      );
+    }
+
+        return (
+          <div className="App">
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <SecaoProdutos secao={this.state.secao} filtro={this.state.filtro} abreFiltro={this.abreFiltro} />
+          </div>
+        );
+  }
 }
 
 export default App;
