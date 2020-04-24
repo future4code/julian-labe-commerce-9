@@ -27,6 +27,10 @@ const ContainerLogoFiltro = styled.div`
     }
 `
 
+const Legenda = styled.label`
+    margin: 0 5px;
+`
+
 class SecaoProdutos extends React.Component{
     state = {
         listaDeProdutos: [
@@ -170,11 +174,27 @@ class SecaoProdutos extends React.Component{
                 imageUrl: "https://picsum.photos/400/400?a=10",
                 categoria: "brinquedos"
             }
-        ]
+        ],
+        ordena: ""
     }
 
-    atualizaProdutos = () => {
-        const listaDePosts = this.state.listaDeProdutos.map((produto, index) =>{
+    atualizaProdutos = (lista) => {
+        // listaDeProdutos.filter((produto)=>{
+        //     switch(this.state.ordena){
+        //         case "precoCrescente":
+        //             listaDeProdutos.sort(function(a,b){
+        //                 return a.value - b.value;
+        //             })
+        //         case "precoDecrescente":
+        //             listaDeProdutos.sort(function(a,b){
+        //                 return b.value - a.value;
+        //             })
+        //         default:
+        //             return true
+        //     }
+        // })
+
+        lista = lista.map((produto, index) =>{
           return <Produto 
                     key={index}
                     id ={produto.id}
@@ -183,11 +203,32 @@ class SecaoProdutos extends React.Component{
                     valor={produto.value}
                   />
         })
-        return listaDePosts
+        return lista
       }
 
+    onChangeOrdena = (event) => {
+        this.setState({ordena: event.target.value})
+    }
+
+    ordenarProdutos = (a, b) => {
+        if(this.state.ordena === "precoCrescente"){
+            return a.value - b.value
+        } else if(this.state.ordena === "precoDecrescente"){
+            return b.value-a.value
+        }
+    }
+
+    // filtraProdutos = () => {
+    //     const listaDeProdutos = this.state.listaDeProdutos.filter(produto =>{
+    //         if()
+    //     })
+    // }
+
     render(){
-        const listaAtualizada = this.atualizaProdutos();
+        // const listaAtualizada = this.atualizaProdutos();
+        const lista = this.state.listaDeProdutos
+        const listaOrdenada = lista.sort(this.ordenarProdutos)
+        const listaAtualizada = this.atualizaProdutos(listaOrdenada)
         switch(this.props.secao){
 
         }
@@ -199,13 +240,21 @@ class SecaoProdutos extends React.Component{
                     <img src={IconeFiltro} /> 
                     <span>Filtrar</span>
                 </ContainerLogoFiltro>
-                <label for="minimo">Valor mínimo: </label>
+                <Legenda for="minimo">Valor mínimo: </Legenda>
                 <input type="number" name="minimo" />
-                <label for="maximo">Valor máximo: </label>
+                <Legenda for="maximo">Valor máximo: </Legenda>
                 <input type="number" name="maximo" />
-                <label for="busca">Buscar Produto </label>
+                <Legenda for="busca">Buscar Produto </Legenda>
                 <input type="text" name="busca" />
             </ContainerFiltros>
+                <div>
+                <Legenda for="ordena">Ordenar por</Legenda>
+                    <select name="ordena" value={this.state.ordena} onChange={this.onChangeOrdena}>
+                        <option value=""></option>
+                        <option value="precoCrescente">Preço: menor para o maior</option>
+                        <option value="precoDecrescente">Preço: maior para o menor</option>
+                    </select>
+                </div>
             <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
                 {listaAtualizada}
             </ContainerProdutos>
