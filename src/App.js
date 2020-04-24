@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   abreCarrinho = () => {
-    this.setState({carrinho: !(this.state.carrinho), secao: ''})
+    this.setState({carrinho: !(this.state.carrinho)})
   }
 
   recebeSecao = (secaoClicada) => {
@@ -43,15 +43,14 @@ class App extends React.Component {
     let lista = [...this.state.listaCarrinho];
     let produto = this.state.listaCarrinho.findIndex((produto) => produto.id === id);
     lista.splice(produto, 1);
-
     this.setState({listaCarrinho: lista})
   }
 
   render(){
-    if(this.state.carrinho && !this.state.secao){
+    if(this.state.carrinho){
         return(
           <div className="App">
-            <Header estado={this.state.secao} passarSecao={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <Carrinho lista={this.state.listaCarrinho} deletar={this.deletar} />
             
           </div>
@@ -60,7 +59,7 @@ class App extends React.Component {
     if(this.state.filtro){
       return(
         <div className="App">
-            <Header estado={this.state.secao} passarSecao={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
         </div>
       );
