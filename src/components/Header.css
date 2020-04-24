@@ -1,120 +1,125 @@
 * {
-    box-sizing: border-box;
-   
+  box-sizing: border-box;
    font-family: Open Sans Condensed;
-  }
-  
-  @font-face {
-    font-family: 'Open Sans Condensed';
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: local('Open Sans Condensed Light'), local('OpenSansCondensed-Light'), url(https://fonts.gstatic.com/s/opensanscondensed/v14/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDujMR6WR.woff2) format('woff2');
-    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-  }
-  
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background-color: #e7ebf0;
-  }
-  
-  .container-menu {
-    width: 1000px;
-    margin: 20px auto;
-  }
-  
-  .center {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .hide {
-    display: none;
-  }
-  
-  
-  .logo-menu {
-    background-color: white;
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    width: 900px;
-    height: 200px;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 0 40px;
-    position: relative;
-  }
-  
-  .menu {
-    background-color: white;
-    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
-    border-bottom-left-radius: 8px;
-    border-start-start-radius: 8px;
-    width: 900px;
-    height: 30px;
-    display: flex;
-    justify-content: space-evenly;
-    position: relative;
-  }
-  
-  .menu-lista {
-    list-style-type: none;
-    padding: 0;
-    height: 100%;
-    margin: 0;
-    margin-right: 40px;
-  }
-  
-  .menu-lista-item {
-    display: inline-block;
-    height: 100%;
-    margin-right: 20px;
-  }
-  
-  .menu-lista-item:last-child {
-    margin-right: 0;
-  }
-  
-  .menu-link {
-    color: #3a3e47;
-    display: inline-block;
-    height: 100%;
-    font-size: 13px;
-    text-decoration: none;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    padding: 0 3px;
-    margin: 0;
-  }
-  
-  .menu-link:hover {
-    color: #ffaa3b;
-    cursor: pointer;
-  }
-  
-  .menu-link--active {
-    color: #ffaa3b;
-    border-top: 4px solid #ffaa3b;
-    font-weight: 700;
-  }
-  
-  .menu-logo {
-    text-indent: -9999999px;
-    display: inline-block;
-    height: 100%;
-    width: 400px;
-    background-size: cover 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0;
-  }
+}
 
-  .icone-carrinho:hover{
-    cursor: pointer
-  }
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Open Sans Condensed Light'), local('OpenSansCondensed-Light'), url(https://fonts.gstatic.com/s/opensanscondensed/v14/z7NFdQDnbTkabZAIOl9il_O6KJj73e7Ff1GhDujMR6WR.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e7ebf0;
+}
+
+.container-menu {
+  width: 900px;
+  margin: 20px auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.app{
+  justify-content: center;
+}
+
+.logo-menu {
+  background-color: white;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 900px;
+  height: 170px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 40px;
+  position: relative;
+}
+
+.logo-menu img{
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.menu {
+  background-color: white;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.15);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-start-start-radius: 8px;
+  width: 900px;
+  height: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 40px;
+  position: relative;
+}
+
+.menu-lista {
+  list-style-type: none;
+  padding: 0;
+  height: 100%;
+  margin: 0;
+  margin-right: 40px;
+}
+
+.menu-lista-item {
+  display: inline-block;
+  height: 100%;
+  margin-right: 20px;
+}
+
+.menu-lista-item:last-child {
+  margin-right: 0;
+}
+
+.menu-link {
+  color: #3a3e47;
+  display: inline-block;
+  height: 100%;
+  font-size: 13px;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+}
+
+.menu-link:hover {
+  color: #ffaa3b;
+}
+
+.menu-link--active {
+  color: #ffaa3b;
+  border-top: 4px solid #ffaa3b;
+  font-weight: 700;
+}
+
+.menu-logo {
+  text-indent: -9999999px;
+  display: inline-block;
+  height: 100%;
+  width: 400px;
+  background-size: cover 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+}
+
