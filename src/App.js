@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header'
-import Filtro from './components/Filtro'
 import Carrinho from './components/Carrinho'
 import SecaoProdutos from './components/SecaoProdutos'
 import Rodape from "./components/Rodape"
@@ -9,6 +8,10 @@ import styled from "styled-components"
 
 const Corpo = styled.body`
     background-color: #e7ebf0;
+`
+
+const DivApp = styled.div`
+  text-align: center;
 `
 
 class App extends React.Component {
@@ -55,28 +58,28 @@ class App extends React.Component {
   render(){
     if(this.state.carrinho){
         return(
-          <div className="App">
+          <DivApp>
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <Carrinho lista={this.state.listaCarrinho} deletar={this.deletar} />
             <Rodape />
-          </div>
+          </DivApp>
         );
     }
     if(this.state.filtro){
       return(
-        <div className="App">
+        <DivApp>
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
-        </div>
+        </DivApp>
       );
     }
 
         return (
-          <div className="App">
+          <DivApp>
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro} />
             <Rodape />
-          </div>
+          </DivApp>
         );
   }
 }

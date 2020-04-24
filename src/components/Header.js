@@ -53,7 +53,7 @@ const MenuListaItem = styled.li`
         margin-right: 0;
     }
 `
-const MenuLink = styled.a`
+const MenuLink = styled.p`
     color: #3a3e47;
     display: inline-block;
     height: 100%;
@@ -63,10 +63,18 @@ const MenuLink = styled.a`
     display: flex;
     align-items: center;
     padding: 0 3px;
+    margin: 0;
     &:hover {
         color: #ffaa3b;
+        cursor: pointer;
     }
 `
+const ImgCarrinho = styled.img`
+    :hover{
+        cursor: pointer;
+    }
+`
+
 class Header extends React.Component{
     state={
         secaoClicada: ""
@@ -90,15 +98,15 @@ class Header extends React.Component{
                 </LogoMenu>
                 <Menu>
                     <MenuLista>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value=''>Todos os produtos</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='satelites'>Satélites</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='roupas'>Roupas</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='viagens'>Viagens</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='meteoros'>Meteoros/Aerolitos</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='brinquedos'>Brinquedos</MenuLink></MenuListaItem>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='veiculos'>Veículos</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value=''>Todos os produtos</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='satelites'>Satélites</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='roupas'>Roupas</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='viagens'>Viagens</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='meteoros'>Meteoros/Aerolitos</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='brinquedos'>Brinquedos</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='veiculos'>Veículos</MenuLink></MenuListaItem>
                     </MenuLista>
-                    <img className="icone-carrinho" onClick={this.props.abreCarrinho} src={IconeCarrinho} />
+                    <ImgCarrinho onClick={this.props.abreCarrinho} src={IconeCarrinho} />
                 </Menu>
         </ContainerMenu>   
         );
