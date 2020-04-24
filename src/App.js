@@ -5,6 +5,11 @@ import Filtro from './components/Filtro'
 import Carrinho from './components/Carrinho'
 import SecaoProdutos from './components/SecaoProdutos'
 import Rodape from "./components/Rodape"
+import styled from "styled-components"
+
+const Corpo = styled.body`
+    background-color: #e7ebf0;
+`
 
 class App extends React.Component {
   state={
@@ -33,7 +38,6 @@ class App extends React.Component {
             <button onClick={this.abreFiltro}>Filtrar</button>
             <Carrinho />
             <Rodape />
-            
           </div>
         );
     }
@@ -42,7 +46,6 @@ class App extends React.Component {
         <div className="App">
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
-            <Rodape />
         </div>
       );
     }
