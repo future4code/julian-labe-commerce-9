@@ -215,7 +215,7 @@ class SecaoProdutos extends React.Component{
         this.setState({inputBusca: event.target.value})
     }
 
-    ordenarProdutos = (a, b) => {
+    ordenaProdutos = (a, b) => {
         if(this.state.ordena === "precoCrescente"){
             return a.value - b.value
         } else if(this.state.ordena === "precoDecrescente"){
@@ -245,8 +245,8 @@ class SecaoProdutos extends React.Component{
     render(){
         let lista = this.state.listaDeProdutos
         lista = this.categorizaProdutos(lista)
-        const listaOrdenada = lista.sort(this.ordenarProdutos)
-        const listaAtualizada = this.atualizaProdutos(listaOrdenada)
+        lista = lista.sort(this.ordenaProdutos)
+        lista = this.atualizaProdutos(lista)
 
         if(this.props.filtro){
             return <div>
@@ -271,7 +271,7 @@ class SecaoProdutos extends React.Component{
                     </select>
                 </div>
                 <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
-                    {listaAtualizada}
+                    {lista}
                 </ContainerProdutos>
             </div>
         }
@@ -283,7 +283,7 @@ class SecaoProdutos extends React.Component{
                     <span>Filtrar</span>
                 </ContainerLogoFiltro>
                 <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
-                    {listaAtualizada}
+                    {lista}
                 </ContainerProdutos>
             </div>
         );
