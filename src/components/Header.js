@@ -91,7 +91,7 @@ class Header extends React.Component{
                 </LogoMenu>
                 <Menu>
                     <MenuLista>
-                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='todos'>Todos os produtos</MenuLink></MenuListaItem>
+                        <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value=''>Todos os produtos</MenuLink></MenuListaItem>
                         <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='satelites'>Satélites</MenuLink></MenuListaItem>
                         <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='roupas'>Roupas</MenuLink></MenuListaItem>
                         <MenuListaItem><MenuLink href="#" onClick={this.atualizaEstado} value='viagens'>Viagens</MenuLink></MenuListaItem>
