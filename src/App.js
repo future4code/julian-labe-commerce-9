@@ -69,6 +69,7 @@ class App extends React.Component {
         <DivApp>
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
+            <Rodape />
         </DivApp>
       );
     }
