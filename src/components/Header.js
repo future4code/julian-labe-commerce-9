@@ -26,13 +26,13 @@ class Header extends React.Component{
                 </div>
                 <nav className="menu">
                     <ul className="menu-lista">
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='todos'>Todos os produtos</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='satelites'>Satélites</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='roupas'>Roupas</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='viagens'>Viagens</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='meteoros'>Meteoros/Aerolitos</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='brinquedos'>Brinquedos</a></li>
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='veiculos'>Veículos</a></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value=''>Todos os produtos</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='satelites'>Satélites</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='roupas'>Roupas</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='viagens'>Viagens</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='meteoros'>Meteoros/Aerolitos</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='brinquedos'>Brinquedos</p></li>
+                        <li className="menu-lista-item"><p className="menu-link" onClick={this.atualizaEstado} value='veiculos'>Veículos</p></li>
                     </ul>
                     <img className="icone-carrinho" onClick={this.props.abreCarrinho} src={IconeCarrinho} />
                 </nav>
