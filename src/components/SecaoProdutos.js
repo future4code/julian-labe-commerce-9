@@ -270,7 +270,7 @@ class SecaoProdutos extends React.Component{
                         <option value="precoDecrescente">Preço: maior para o menor</option>
                     </select>
                 </div>
-                <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
+                <ContainerProdutos linhas={Math.ceil(lista.length/4)}>
                     {lista}
                 </ContainerProdutos>
             </div>
@@ -282,7 +282,7 @@ class SecaoProdutos extends React.Component{
                     <img src={IconeFiltro} /> 
                     <span>Filtrar</span>
                 </ContainerLogoFiltro>
-                <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
+                <ContainerProdutos linhas={Math.ceil(lista.length/4)}>
                     {lista}
                 </ContainerProdutos>
             </div>
