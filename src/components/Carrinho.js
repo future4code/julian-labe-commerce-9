@@ -1,4 +1,17 @@
 import React from 'react';
+import styled from 'styled-components'
+
+const ContainerCarrinho = styled.div`
+    background-color: white;
+    width: 900px;
+    padding: 10px;
+    display: grid;
+    grid-template-rows: repeat(${props => props.linhas}, 1fr);
+    gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+    border-radius: 8px;
+`
 
 class Carrinho extends React.Component {
     atualizaProdutos = (lista) => {
@@ -6,19 +19,34 @@ class Carrinho extends React.Component {
             return <div>
             <img src={produto.imageUrl} />
                 <p>{produto.name}</p>
-                <p>R${produto.value.toFixed(2)}</p>
-                <p>Quantidade:{produto.quantidade}</p>
+                <p>Valor unitário: R${produto.value.toFixed(2)}</p>
+                <p>Quantidade: {produto.quantidade}</p>
                 <button onClick={() => this.props.deletar(produto.id)}>Excluir produto</button>
             </div>       
         })
         return lista
     }
+
+    atualizaValor = (lista) => {
+        let valor = 0;
+        for(let i=0; i<lista.length; i++){
+            console.log(lista[i]);
+            valor += lista[i].value*lista[i].quantidade;
+        }
+        return valor
+    }
+
     render(){
         let listaCarrinho = this.props.lista;
+        const valorTotal = this.atualizaValor(listaCarrinho)
         listaCarrinho = this.atualizaProdutos(listaCarrinho)
         return <div>
-            {listaCarrinho}
-        </div>   
+            <h3>Meu carrinho</h3>
+            <ContainerCarrinho linhas={listaCarrinho.length}>
+                {listaCarrinho}
+            </ContainerCarrinho>   
+            <h1>Valor total: {valorTotal.toFixed(2)}</h1>
+        </div>
        }
 }
 
