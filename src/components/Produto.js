@@ -7,16 +7,12 @@ const Imagem = styled.img`
 
 
 class Produto extends React.Component {
-    adicionaAoCarrinho = (id) =>{
-        console.log(id);
-    }
-    
     render(){
         return <div>
             <Imagem src={this.props.linkImagem} />
             <p>{this.props.nome}</p>
             <p>R${this.props.valor.toFixed(2)}</p>
-            <button onClick={() => this.adicionaAoCarrinho(this.props.id)}>Adicionar ao carrinho</button>
+            <button onClick={() => this.props.passarCarrinho(this.props.id)}>Adicionar ao carrinho</button>
         </div>
     }
 }
