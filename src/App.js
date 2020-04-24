@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   abreCarrinho = () => {
-    this.setState({carrinho: !(this.state.carrinho)})
+    this.setState({carrinho: !(this.state.carrinho), secao:'carrinho'})
   }
 
   recebeSecao = (secaoClicada) => {
