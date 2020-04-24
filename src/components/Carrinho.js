@@ -13,14 +13,20 @@ const ContainerCarrinho = styled.div`
     border-radius: 8px;
 `
 
+const ProdutoCarrinho = styled.div`
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+`
+
 class Carrinho extends React.Component {
     atualizaProdutos = (lista) => {
         lista = lista.map((produto, index) =>{
             return <div>
             <img src={produto.imageUrl} />
                 <p>{produto.name}</p>
-                <p>Valor unitário: R${produto.value.toFixed(2)}</p>
+                <p>R${produto.value.toFixed(2)}</p>
                 <p>Quantidade: {produto.quantidade}</p>
+                <p>R${(produto.value*produto.quantidade).toFixed(2)}</p>
                 <button onClick={() => this.props.deletar(produto.id)}>Excluir produto</button>
             </div>       
         })
