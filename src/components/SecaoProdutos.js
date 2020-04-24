@@ -16,6 +16,23 @@ const ContainerProdutos = styled.div`
     margin: 20px auto;
     border-radius: 8px;
 `
+const ContainerFiltros = styled.div`
+    display: inline-flex;
+    align-items: center;
+`
+
+const ContainerLogoFiltro = styled.div`
+    display: inline-flex;
+    align-items: center;
+    margin: 0 15px;
+    :hover{
+        cursor:pointer;
+    }
+`
+
+const Legenda = styled.label`
+    margin: 0 5px;
+`
 
 class SecaoProdutos extends React.Component{
     state = {
@@ -160,12 +177,16 @@ class SecaoProdutos extends React.Component{
                 imageUrl: "https://picsum.photos/400/400?a=10",
                 categoria: "brinquedos"
             }
-        ]
+        ],
+        ordena: "",
+        inputValorMinimo: "",
+        inputValorMaximo: "",
+        inputBusca: ""
     }
 
-    atualizaProdutos = () => {
-        const listaDePosts = this.state.listaDeProdutos.map((produto, index) =>{
-          return <Produto 
+    atualizaProdutos = (lista) => {
+        lista = lista.map((produto, index) =>{
+            return <Produto 
                     key={index}
                     id ={produto.id}
                     linkImagem={produto.imageUrl}
@@ -173,20 +194,118 @@ class SecaoProdutos extends React.Component{
                     valor={produto.value}
                   />
         })
-        return listaDePosts
-      }
+        return lista
+    }
+
+    onChangeOrdena = (event) => {
+        this.setState({ordena: event.target.value})
+    }
+
+    onChangeValorMinimo = (event) => {
+        if(event.target.value>=0){
+            this.setState({inputValorMinimo: event.target.value})
+        }
+    }
+
+    onChangeValorMaximo = (event) => {
+        if(event.target.value>=0){
+            this.setState({inputValorMaximo: event.target.value})
+        }
+    }
+
+    onChangeInputBusca = (event) => {
+        this.setState({inputBusca: event.target.value})
+    }
+
+    categorizaProdutos = (lista) => {
+        if(this.props.secao){
+            lista = lista.filter(item =>{
+                if(item.categoria === this.props.secao){
+                    return item
+                }
+            })
+        }
+        return lista;
+    }
+
+    filtraPorValor = (lista) => {
+        let valorMinimo = this.state.inputValorMinimo;
+        let valorMaximo = this.state.inputValorMaximo;
+        if(valorMinimo===""){
+            valorMinimo=-Infinity;
+        }
+        if(valorMaximo===""){
+            valorMaximo=Infinity;
+        }
+
+        lista = lista.filter(produto =>{
+            return produto.value >= valorMinimo && produto.value <= valorMaximo
+        })
+        return lista;
+    }
+    filtraPorNome = (lista) => {
+        lista = lista.filter(produto =>{
+            if(produto.name.toLowerCase().includes(this.state.inputBusca.toLowerCase())){
+                return true
+            }
+        })
+        return lista;
+    }
+
+    ordenaProdutos = (a, b) => {
+        if(this.state.ordena === "precoCrescente"){
+            return a.value - b.value
+        } else if(this.state.ordena === "precoDecrescente"){
+            return b.value-a.value
+        } else {
+            return a.id - b.id
+        }
+    }
 
     render(){
-        const listaAtualizada = this.atualizaProdutos();
-        switch(this.props.secao){
-            
+        let lista = this.state.listaDeProdutos
+        lista = this.categorizaProdutos(lista)
+        lista = this.filtraPorValor(lista)
+        lista = this.filtraPorNome(lista)
+        lista = lista.sort(this.ordenaProdutos)
+        lista = this.atualizaProdutos(lista)
+
+        if(this.props.filtro){
+            return <div>
+                <ContainerFiltros>
+                    <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                        <img src={IconeFiltro} /> 
+                        <span>Filtrar</span>
+                    </ContainerLogoFiltro>
+                    <Legenda for="minimo">Valor mínimo: </Legenda>
+                    <input type="number" name="minimo" value={this.state.inputValorMinimo} onChange={this.onChangeValorMinimo} />
+                    <Legenda for="maximo">Valor máximo: </Legenda>
+                    <input type="number" name="maximo" value={this.state.inputValorMaximo} onChange={this.onChangeValorMaximo} />
+                    <Legenda for="busca">Buscar Produto </Legenda>
+                    <input type="text" name="busca" value={this.state.inputBusca} onChange={this.onChangeInputBusca} />
+                </ContainerFiltros>
+                <div>
+                <Legenda for="ordena">Ordenar por</Legenda>
+                    <select name="ordena" value={this.state.ordena} onChange={this.onChangeOrdena}>
+                        <option value=""></option>
+                        <option value="precoCrescente">Preço: menor para o maior</option>
+                        <option value="precoDecrescente">Preço: maior para o menor</option>
+                    </select>
+                </div>
+                <ContainerProdutos linhas={Math.ceil(lista.length/4)}>
+                    {lista}
+                </ContainerProdutos>
+            </div>
         }
 
         return(
             <div>
-                <img className="icone-carrinho" onClick={this.props.abreFiltro} src={IconeFiltro} /> Filtrar
-                <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
-                    {listaAtualizada}
+                <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                    <img src={IconeFiltro} /> 
+                    <span>Filtrar</span>
+                </ContainerLogoFiltro>
+                <ContainerProdutos linhas={Math.ceil(lista.length/4)}>
+                    {lista}
                 </ContainerProdutos>
             </div>
         );
