@@ -191,9 +191,8 @@ class SecaoProdutos extends React.Component{
                     valor={produto.value}
                   />
         })
-
         return lista
-      }
+    }
 
     onChangeOrdena = (event) => {
         this.setState({ordena: event.target.value})
@@ -215,16 +214,6 @@ class SecaoProdutos extends React.Component{
         this.setState({inputBusca: event.target.value})
     }
 
-    ordenaProdutos = (a, b) => {
-        if(this.state.ordena === "precoCrescente"){
-            return a.value - b.value
-        } else if(this.state.ordena === "precoDecrescente"){
-            return b.value-a.value
-        } else {
-            return a.id - b.id
-        }
-    }
-
     categorizaProdutos = (lista) => {
         if(this.props.secao){
             lista = lista.filter(item =>{
@@ -236,15 +225,45 @@ class SecaoProdutos extends React.Component{
         return lista;
     }
 
-    // filtraProdutos = () => {
-    //     const listaDeProdutos = this.state.listaDeProdutos.filter(produto =>{
-    //         if()
-    //     })
-    // }
+    filtraPorValor = (lista) => {
+        let valorMinimo = this.state.inputValorMinimo;
+        let valorMaximo = this.state.inputValorMaximo;
+        if(valorMinimo===""){
+            valorMinimo=-Infinity;
+        }
+        if(valorMaximo===""){
+            valorMaximo=Infinity;
+        }
+
+        lista = lista.filter(produto =>{
+            return produto.value >= valorMinimo && produto.value <= valorMaximo
+        })
+        return lista;
+    }
+    filtraPorNome = (lista) => {
+        lista = lista.filter(produto =>{
+            if(produto.name.toLowerCase().includes(this.state.inputBusca.toLowerCase())){
+                return true
+            }
+        })
+        return lista;
+    }
+
+    ordenaProdutos = (a, b) => {
+        if(this.state.ordena === "precoCrescente"){
+            return a.value - b.value
+        } else if(this.state.ordena === "precoDecrescente"){
+            return b.value-a.value
+        } else {
+            return a.id - b.id
+        }
+    }
 
     render(){
         let lista = this.state.listaDeProdutos
         lista = this.categorizaProdutos(lista)
+        lista = this.filtraPorValor(lista)
+        lista = this.filtraPorNome(lista)
         lista = lista.sort(this.ordenaProdutos)
         lista = this.atualizaProdutos(lista)
 
