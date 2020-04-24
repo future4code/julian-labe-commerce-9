@@ -26,7 +26,7 @@ class Header extends React.Component{
                 </div>
                 <nav className="menu">
                     <ul className="menu-lista">
-                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='todos'>Todos os produtos</a></li>
+                        <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value=''>Todos os produtos</a></li>
                         <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='satelites'>Satélites</a></li>
                         <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='roupas'>Roupas</a></li>
                         <li className="menu-lista-item"><a className="menu-link" href="#" onClick={this.atualizaEstado} value='viagens'>Viagens</a></li>

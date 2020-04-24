@@ -191,7 +191,7 @@ class SecaoProdutos extends React.Component{
                     valor={produto.value}
                   />
         })
-        
+
         return lista
       }
 
@@ -225,6 +225,17 @@ class SecaoProdutos extends React.Component{
         }
     }
 
+    categorizaProdutos = (lista) => {
+        if(this.props.secao){
+            lista = lista.filter(item =>{
+                if(item.categoria === this.props.secao){
+                    return item
+                }
+            })
+        }
+        return lista;
+    }
+
     // filtraProdutos = () => {
     //     const listaDeProdutos = this.state.listaDeProdutos.filter(produto =>{
     //         if()
@@ -232,13 +243,10 @@ class SecaoProdutos extends React.Component{
     // }
 
     render(){
-        const lista = this.state.listaDeProdutos
-        switch(this.props.secao){
-
-        }
+        let lista = this.state.listaDeProdutos
+        lista = this.categorizaProdutos(lista)
         const listaOrdenada = lista.sort(this.ordenarProdutos)
         const listaAtualizada = this.atualizaProdutos(listaOrdenada)
-        
 
         if(this.props.filtro){
             return <div>
