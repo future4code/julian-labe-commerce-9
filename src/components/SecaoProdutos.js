@@ -12,6 +12,9 @@ const ContainerProdutos = styled.div`
     grid-template-rows: repeat(${props => props.linhas}, 1fr);
     gap: 10px;
     column-gap: 10px;
+    justify-content: center;
+    margin: 20px auto;
+    border-radius: 8px;
 `
 const ContainerFiltros = styled.div`
     display: inline-flex;
