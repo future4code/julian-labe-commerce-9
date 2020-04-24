@@ -181,17 +181,11 @@ class SecaoProdutos extends React.Component{
         inputBusca: ""
     }
 
-    atualizaProdutos = (lista) => {
-        lista = lista.map((produto, index) =>{
-            return <Produto 
-                    key={index}
-                    id ={produto.id}
-                    linkImagem={produto.imageUrl}
-                    nome={produto.name}
-                    valor={produto.value}
-                  />
-        })
-        return lista
+    
+
+    produtoCarrinho = (id) => {
+        const produtoSelecionado = this.state.listaDeProdutos.find(produto=> produto.id === id)
+        this.props.passarProduto(produtoSelecionado)
     }
 
     onChangeOrdena = (event) => {
@@ -257,6 +251,20 @@ class SecaoProdutos extends React.Component{
         } else {
             return a.id - b.id
         }
+    }
+
+    atualizaProdutos = (lista) => {
+        lista = lista.map((produto, index) =>{
+            return <Produto 
+                    key={index}
+                    id ={produto.id}
+                    linkImagem={produto.imageUrl}
+                    nome={produto.name}
+                    valor={produto.value}
+                    passarCarrinho={this.produtoCarrinho}
+                  />
+        })
+        return lista
     }
 
     render(){

@@ -9,7 +9,8 @@ class App extends React.Component {
   state={
     filtro: false,
     carrinho: false,
-    secao: ''
+    secao: '',
+    listaCarrinho: [] 
   }
 
   abreFiltro = () =>{
@@ -24,13 +25,34 @@ class App extends React.Component {
     this.setState({secao: secaoClicada, carrinho: false})
   }
 
+  adicionaCarrinho = (novoProduto) =>{
+    let lista = [...this.state.listaCarrinho];
+    let existe = this.state.listaCarrinho.findIndex((produto) => produto.name === novoProduto.name);
+    if(existe > -1){
+        lista[existe].quantidade++;
+    }
+    else{
+      novoProduto.quantidade=1;
+      lista.push(novoProduto);
+    }
+    
+    this.setState({listaCarrinho: lista})
+  }
+
+  deletar = (id) =>{
+    let lista = [...this.state.listaCarrinho];
+    let produto = this.state.listaCarrinho.findIndex((produto) => produto.id === id);
+    lista.splice(produto, 1);
+
+    this.setState({listaCarrinho: lista})
+  }
+
   render(){
     if(this.state.carrinho && !this.state.secao){
         return(
           <div className="App">
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
-            <button onClick={this.abreFiltro}>Filtrar</button>
-            <Carrinho />
+            <Header estado={this.state.secao} passarSecao={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <Carrinho lista={this.state.listaCarrinho} deletar={this.deletar} />
             
           </div>
         );
@@ -38,8 +60,8 @@ class App extends React.Component {
     if(this.state.filtro){
       return(
         <div className="App">
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
-            <SecaoProdutos secao={this.state.secao} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
+            <Header estado={this.state.secao} passarSecao={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
         </div>
       );
     }
@@ -47,7 +69,7 @@ class App extends React.Component {
         return (
           <div className="App">
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
-            <SecaoProdutos secao={this.state.secao} filtro={this.state.filtro} abreFiltro={this.abreFiltro} />
+            <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro} />
           </div>
         );
   }
