@@ -19,6 +19,8 @@ const ProdutoCarrinho = styled.div`
 `
 
 class Carrinho extends React.Component {
+    
+
     atualizaProdutos = (lista) => {
         lista = lista.map((produto, index) =>{
             return <div>
