@@ -22,7 +22,7 @@ class Header extends React.Component{
         return(
             <div className="container-menu">
                 <div className="logo-menu">
-                    <h1 style={{'background-image': 'url('+ logo +')'}} className="menu-logo">Via Lactea</h1>
+                <img src={logo} alt="Logotipo da loja"/>
                 </div>
                 <nav className="menu">
                     <ul className="menu-lista">

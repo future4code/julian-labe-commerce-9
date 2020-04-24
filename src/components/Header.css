@@ -54,8 +54,8 @@ body {
 }
 
 .logo-menu img{
-  border-radius: 50%;
-  width: 150px;
+  border-radius: 8px;
+  width: 800px;
   height: 150px;
 }
 
