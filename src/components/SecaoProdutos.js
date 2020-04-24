@@ -175,27 +175,15 @@ class SecaoProdutos extends React.Component{
                 categoria: "brinquedos"
             }
         ],
-        ordena: ""
+        ordena: "",
+        inputValorMinimo: "",
+        inputValorMaximo: "",
+        inputBusca: ""
     }
 
     atualizaProdutos = (lista) => {
-        // listaDeProdutos.filter((produto)=>{
-        //     switch(this.state.ordena){
-        //         case "precoCrescente":
-        //             listaDeProdutos.sort(function(a,b){
-        //                 return a.value - b.value;
-        //             })
-        //         case "precoDecrescente":
-        //             listaDeProdutos.sort(function(a,b){
-        //                 return b.value - a.value;
-        //             })
-        //         default:
-        //             return true
-        //     }
-        // })
-
         lista = lista.map((produto, index) =>{
-          return <Produto 
+            return <Produto 
                     key={index}
                     id ={produto.id}
                     linkImagem={produto.imageUrl}
@@ -203,6 +191,7 @@ class SecaoProdutos extends React.Component{
                     valor={produto.value}
                   />
         })
+        
         return lista
       }
 
@@ -210,11 +199,29 @@ class SecaoProdutos extends React.Component{
         this.setState({ordena: event.target.value})
     }
 
+    onChangeValorMinimo = (event) => {
+        if(event.target.value>=0){
+            this.setState({inputValorMinimo: event.target.value})
+        }
+    }
+
+    onChangeValorMaximo = (event) => {
+        if(event.target.value>=0){
+            this.setState({inputValorMaximo: event.target.value})
+        }
+    }
+
+    onChangeInputBusca = (event) => {
+        this.setState({inputBusca: event.target.value})
+    }
+
     ordenarProdutos = (a, b) => {
         if(this.state.ordena === "precoCrescente"){
             return a.value - b.value
         } else if(this.state.ordena === "precoDecrescente"){
             return b.value-a.value
+        } else {
+            return a.id - b.id
         }
     }
 
@@ -225,28 +232,28 @@ class SecaoProdutos extends React.Component{
     // }
 
     render(){
-        // const listaAtualizada = this.atualizaProdutos();
         const lista = this.state.listaDeProdutos
-        const listaOrdenada = lista.sort(this.ordenarProdutos)
-        const listaAtualizada = this.atualizaProdutos(listaOrdenada)
         switch(this.props.secao){
 
         }
+        const listaOrdenada = lista.sort(this.ordenarProdutos)
+        const listaAtualizada = this.atualizaProdutos(listaOrdenada)
+        
 
         if(this.props.filtro){
             return <div>
-            <ContainerFiltros>
-                <ContainerLogoFiltro onClick={this.props.abreFiltro}>
-                    <img src={IconeFiltro} /> 
-                    <span>Filtrar</span>
-                </ContainerLogoFiltro>
-                <Legenda for="minimo">Valor mínimo: </Legenda>
-                <input type="number" name="minimo" />
-                <Legenda for="maximo">Valor máximo: </Legenda>
-                <input type="number" name="maximo" />
-                <Legenda for="busca">Buscar Produto </Legenda>
-                <input type="text" name="busca" />
-            </ContainerFiltros>
+                <ContainerFiltros>
+                    <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                        <img src={IconeFiltro} /> 
+                        <span>Filtrar</span>
+                    </ContainerLogoFiltro>
+                    <Legenda for="minimo">Valor mínimo: </Legenda>
+                    <input type="number" name="minimo" value={this.state.inputValorMinimo} onChange={this.onChangeValorMinimo} />
+                    <Legenda for="maximo">Valor máximo: </Legenda>
+                    <input type="number" name="maximo" value={this.state.inputValorMaximo} onChange={this.onChangeValorMaximo} />
+                    <Legenda for="busca">Buscar Produto </Legenda>
+                    <input type="text" name="busca" value={this.state.inputBusca} onChange={this.onChangeInputBusca} />
+                </ContainerFiltros>
                 <div>
                 <Legenda for="ordena">Ordenar por</Legenda>
                     <select name="ordena" value={this.state.ordena} onChange={this.onChangeOrdena}>
@@ -255,9 +262,9 @@ class SecaoProdutos extends React.Component{
                         <option value="precoDecrescente">Preço: maior para o menor</option>
                     </select>
                 </div>
-            <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
-                {listaAtualizada}
-            </ContainerProdutos>
+                <ContainerProdutos linhas={Math.ceil(this.state.listaDeProdutos.length/4)}>
+                    {listaAtualizada}
+                </ContainerProdutos>
             </div>
         }
 
