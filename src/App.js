@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Header from './components/Header'
 import Carrinho from './components/Carrinho'
 import SecaoProdutos from './components/SecaoProdutos'
@@ -27,7 +26,7 @@ class App extends React.Component {
   }
 
   abreCarrinho = () => {
-    this.setState({carrinho: !(this.state.carrinho), secao:'carrinho'})
+    this.setState({carrinho: !(this.state.carrinho)})
   }
 
   recebeSecao = (secaoClicada) => {
@@ -47,6 +46,17 @@ class App extends React.Component {
     
     this.setState({listaCarrinho: lista})
   }
+
+  componentDidUpdate = () => {
+    localStorage.setItem("carrinho", JSON.stringify(this.state.listaCarrinho))
+  }
+
+  componentDidMount = () => {
+    const resgataCarrinho = JSON.parse(localStorage.getItem("carrinho"));
+    this.setState({listaCarrinho: resgataCarrinho})
+  }
+
+  
 
   deletar = (id) =>{
     let lista = [...this.state.listaCarrinho];
@@ -70,6 +80,7 @@ class App extends React.Component {
         <DivApp>
             <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
             <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
+            <Rodape />
         </DivApp>
       );
     }
