@@ -53,7 +53,9 @@ class App extends React.Component {
 
   componentDidMount = () => {
     const resgataCarrinho = JSON.parse(localStorage.getItem("carrinho"));
-    this.setState({listaCarrinho: resgataCarrinho})
+    if(resgataCarrinho !== null){
+      this.setState({listaCarrinho: resgataCarrinho})
+    }
   }
 
   
