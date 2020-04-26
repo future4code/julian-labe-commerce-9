@@ -10,7 +10,7 @@ const Imagem = styled.img`
     max-width: 100%;
 `
 
-
+//componente que retorna cada produto individualmente, chamado na SecaoProdutos.js passando props
 class Produto extends React.Component {
     render(){
         return <ContainerProduto>

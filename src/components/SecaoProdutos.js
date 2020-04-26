@@ -178,39 +178,50 @@ class SecaoProdutos extends React.Component{
                 categoria: "brinquedos"
             }
         ],
+        filtro: false,
         ordena: "",
         inputValorMinimo: "",
         inputValorMaximo: "",
         inputBusca: ""
     }
 
+    //método utilizado no botão de filtro, para mostrar/esconder os inputs dos filtros
+    abreFiltro = () =>{
+        this.setState({filtro: !(this.state.filtro)})
+    }
     
-
+    //utilizado para adicionar o produto no carrinho, chamando a função adicionaCarrinho do App.js
     produtoCarrinho = (id) => {
         const produtoSelecionado = this.state.listaDeProdutos.find(produto=> produto.id === id)
         this.props.passarProduto(produtoSelecionado)
     }
 
+    //utilizado para o controle do select
     onChangeOrdena = (event) => {
         this.setState({ordena: event.target.value})
     }
 
+    //utilizado para o controle do input de valor mínimo
     onChangeValorMinimo = (event) => {
         if(event.target.value>=0){
             this.setState({inputValorMinimo: event.target.value})
         }
     }
 
+    //utilizado para o controle do input de valor máximo
     onChangeValorMaximo = (event) => {
         if(event.target.value>=0){
             this.setState({inputValorMaximo: event.target.value})
         }
     }
 
+    //utilizado para o controle do input de busca
     onChangeInputBusca = (event) => {
         this.setState({inputBusca: event.target.value})
     }
 
+    //utilizado para categorizar o produto de acordo com a seção. A verificação é feita com a lista
+    //de produtos no estado e com a seção atual
     categorizaProdutos = (lista) => {
         if(this.props.secao){
             lista = lista.filter(item =>{
@@ -222,6 +233,10 @@ class SecaoProdutos extends React.Component{
         return lista;
     }
 
+    //função para filtrar por valor, utilizei a verificação para se os valores estiverem vazios
+    //mudar para -Inifinity e Infinity, porque qualquer número é maior que -infinito e qualquer 
+    //número é menor que +infinito. Em seguida, filtra o array dependendo da propriedade value
+    //de cada produto com o valor do input
     filtraPorValor = (lista) => {
         let valorMinimo = this.state.inputValorMinimo;
         let valorMaximo = this.state.inputValorMaximo;
@@ -237,6 +252,9 @@ class SecaoProdutos extends React.Component{
         })
         return lista;
     }
+
+    //função para filtrar por nome. Utilizei o .toLowerCase para não ser CaseSensitive, 
+    //tanto no produto quanto no input
     filtraPorNome = (lista) => {
         lista = lista.filter(produto =>{
             if(produto.name.toLowerCase().includes(this.state.inputBusca.toLowerCase())){
@@ -246,6 +264,8 @@ class SecaoProdutos extends React.Component{
         return lista;
     }
 
+    //função para ordenar se o preço for crescente ou decrescente, de acordo com o select.
+    //o else serve para voltar a ordenação por id, que é a ordenação padrão
     ordenaProdutos = (a, b) => {
         if(this.state.ordena === "precoCrescente"){
             return a.value - b.value
@@ -256,6 +276,7 @@ class SecaoProdutos extends React.Component{
         }
     }
 
+    //função para formatar a lista para jsx, passando props de cada produto
     atualizaProdutos = (lista) => {
         lista = lista.map((produto, index) =>{
             return <Produto 
@@ -271,6 +292,8 @@ class SecaoProdutos extends React.Component{
     }
 
     render(){
+        //aqui pego a lista e passo por cada um dos métodos explicados acima,
+        //para categorizar, filtrar, ordenar e formatar
         let lista = this.state.listaDeProdutos
         lista = this.categorizaProdutos(lista)
         lista = this.filtraPorValor(lista)
@@ -278,10 +301,11 @@ class SecaoProdutos extends React.Component{
         lista = lista.sort(this.ordenaProdutos)
         lista = this.atualizaProdutos(lista)
 
-        if(this.props.filtro){
+        //se o estado do filtro estiver aberto, abre os inputs do filtro
+        if(this.state.filtro){
             return <div>
                 <ContainerFiltros>
-                    <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                    <ContainerLogoFiltro onClick={this.abreFiltro}>
                         <img src={IconeFiltro} /> 
                         <span>Filtrar</span>
                     </ContainerLogoFiltro>
@@ -308,7 +332,7 @@ class SecaoProdutos extends React.Component{
 
         return(
             <div>
-                <ContainerLogoFiltro onClick={this.props.abreFiltro}>
+                <ContainerLogoFiltro onClick={this.abreFiltro}>
                     <img src={IconeFiltro} /> 
                     <span>Filtrar</span>
                 </ContainerLogoFiltro>

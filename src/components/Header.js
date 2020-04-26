@@ -80,10 +80,14 @@ class Header extends React.Component{
         secaoClicada: ""
     }
 
+    //método utilizado para atualizar o estado de acordo com o item clicado. Ele pega o atributo value
     atualizaEstado = (event) => {
         this.setState({secaoClicada: event.target.getAttribute("value")})
     }
 
+    //quando o estado muda (clica em um item do menu), essa função executa, e faz uma verificação
+    //da seção atual com a seção anterior. Se as seções forem diferentes, passa a seção clicada
+    //para ser atualizada no App.js
     componentDidUpdate = (prevProps) => {
         if(this.state.secaoClicada !== prevProps.estado){
              this.props.passarInfo(this.state.secaoClicada);
