@@ -21,16 +21,20 @@ class App extends React.Component {
     listaCarrinho: [] 
   }
 
+  
   abreFiltro = () =>{
     this.setState({filtro: !(this.state.filtro)})
   }
 
-  abreCarrinho = () => {
-    this.setState({carrinho: !(this.state.carrinho)})
-  }
-
+  
   recebeSecao = (secaoClicada) => {
-    this.setState({secao: secaoClicada, carrinho: false})
+    this.setState({secao: secaoClicada})
+    if(secaoClicada==='carrinho'){
+      this.setState({carrinho: true})
+    }
+    else{
+      this.setState({carrinho: false})
+    }
   }
 
   adicionaCarrinho = (novoProduto) =>{
@@ -71,7 +75,7 @@ class App extends React.Component {
     if(this.state.carrinho){
         return(
           <DivApp>
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} />
             <Carrinho lista={this.state.listaCarrinho} deletar={this.deletar} />
             <Rodape />
           </DivApp>

@@ -106,7 +106,7 @@ class Header extends React.Component{
                         <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='brinquedos'>Brinquedos</MenuLink></MenuListaItem>
                         <MenuListaItem><MenuLink onClick={this.atualizaEstado} value='veiculos'>Veículos</MenuLink></MenuListaItem>
                     </MenuLista>
-                    <ImgCarrinho onClick={this.props.abreCarrinho} src={IconeCarrinho} />
+                    <ImgCarrinho onClick={this.atualizaEstado} src={IconeCarrinho} value='carrinho' />
                 </Menu>
         </ContainerMenu>   
         );
