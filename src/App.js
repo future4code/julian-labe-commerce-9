@@ -85,7 +85,7 @@ class App extends React.Component {
     //se o carrinho estiver fechado, retorna essa seção, que é a inicial
     return (
       <DivApp>
-        <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+        <Header estado={this.state.secao} passarInfo={this.recebeSecao} />
         <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} />
         <Rodape />
       </DivApp>
