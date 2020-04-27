@@ -19,8 +19,10 @@ const ProdutoCarrinho = styled.div`
 `
 
 class Carrinho extends React.Component {
-    
 
+    //método para formatar a lista como jsx, poderia ter componentizado também os produtos
+    //do carrinho individualmente, assim como fiz nos produtos, para ficar mais clean, mas 
+    //já tava cansado, então deixei assim
     atualizaProdutos = (lista) => {
         lista = lista.map((produto, index) =>{
             return <div>
@@ -35,6 +37,7 @@ class Carrinho extends React.Component {
         return lista
     }
 
+    //método utilizado para calcular o valor total dos itens no carrinho
     atualizaValor = (lista) => {
         let valor = 0;
         for(let i=0; i<lista.length; i++){

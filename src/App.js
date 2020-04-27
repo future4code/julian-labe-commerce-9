@@ -15,27 +15,27 @@ const DivApp = styled.div`
 
 class App extends React.Component {
   state={
-    filtro: false,
     carrinho: false,
     secao: '',
     listaCarrinho: [] 
   }
 
-  abreFiltro = () =>{
-    this.setState({filtro: !(this.state.filtro)})
-  }
 
-  abreCarrinho = () => {
-    this.setState({carrinho: !(this.state.carrinho)})
-  }
-
+  //método utilizado para receber seção clicada no header, serve também para abrir o carrinho
   recebeSecao = (secaoClicada) => {
-    this.setState({secao: secaoClicada, carrinho: false})
+    this.setState({secao: secaoClicada})
+    if(secaoClicada==='carrinho'){
+      this.setState({carrinho: true})
+    }
+    else{
+      this.setState({carrinho: false})
+    }
   }
 
+  //método utilizado para adicionar produtos no carrinho, recebendo o objeto novoProduto da seção de produtos
   adicionaCarrinho = (novoProduto) =>{
     let lista = [...this.state.listaCarrinho];
-    let existe = this.state.listaCarrinho.findIndex((produto) => produto.name === novoProduto.name);
+    let existe = this.state.listaCarrinho.findIndex((produto) => produto.id === novoProduto.id);
     if(existe > -1){
         lista[existe].quantidade++;
     }
@@ -47,10 +47,12 @@ class App extends React.Component {
     this.setState({listaCarrinho: lista})
   }
 
+  //método utilizado para salvar o carrinho no localStorage se ele for atualizado
   componentDidUpdate = () => {
     localStorage.setItem("carrinho", JSON.stringify(this.state.listaCarrinho))
   }
 
+  //método utilizado para resgatar o carrinho do localStorage, se existir
   componentDidMount = () => {
     const resgataCarrinho = JSON.parse(localStorage.getItem("carrinho"));
     if(resgataCarrinho !== null){
@@ -58,8 +60,9 @@ class App extends React.Component {
     }
   }
 
-  
-
+  //método utilizado para deletar o produto do carrinho, recebendo do componente Carrinho.js
+  //resolvi fazer aqui, porque estou adicionando no carrinho nesse mesmo componente e passando
+  //o estado quando chamo ele no render
   deletar = (id) =>{
     let lista = [...this.state.listaCarrinho];
     let produto = this.state.listaCarrinho.findIndex((produto) => produto.id === id);
@@ -68,32 +71,25 @@ class App extends React.Component {
   }
 
   render(){
+    //se o carrinho tiver aberto, retorna essa seção
     if(this.state.carrinho){
         return(
           <DivApp>
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+            <Header estado={this.state.secao} passarInfo={this.recebeSecao} />
             <Carrinho lista={this.state.listaCarrinho} deletar={this.deletar} />
             <Rodape />
           </DivApp>
         );
     }
-    if(this.state.filtro){
-      return(
-        <DivApp>
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
-            <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro}/>
-            <Rodape />
-        </DivApp>
-      );
-    }
 
-        return (
-          <DivApp>
-            <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
-            <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} filtro={this.state.filtro} abreFiltro={this.abreFiltro} />
-            <Rodape />
-          </DivApp>
-        );
+    //se o carrinho estiver fechado, retorna essa seção, que é a inicial
+    return (
+      <DivApp>
+        <Header estado={this.state.secao} passarInfo={this.recebeSecao} abreCarrinho={this.abreCarrinho} />
+        <SecaoProdutos secao={this.state.secao} passarProduto={this.adicionaCarrinho} />
+        <Rodape />
+      </DivApp>
+    );
   }
 }
 
