@@ -41,7 +41,6 @@ class Carrinho extends React.Component {
     atualizaValor = (lista) => {
         let valor = 0;
         for(let i=0; i<lista.length; i++){
-            console.log(lista[i]);
             valor += lista[i].value*lista[i].quantidade;
         }
         return valor
